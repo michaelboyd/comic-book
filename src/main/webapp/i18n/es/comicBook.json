@@ -19,6 +19,8 @@
             "title": "Title",
             "description": "Description",
             "createDate": "Create Date",
+            "coverImageData": "Cover Image Data",
+            "synopsis": "Synopsis",
             "pages": "Pages"
         }
     }

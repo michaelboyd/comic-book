@@ -33,6 +33,17 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="cover_image_data" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="cover_image_data_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="synopsis" type="clob">
+                <constraints nullable="true" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         

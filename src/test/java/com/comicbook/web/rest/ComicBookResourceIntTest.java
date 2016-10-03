@@ -22,6 +22,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -50,6 +51,14 @@ public class ComicBookResourceIntTest {
 
     private static final LocalDate DEFAULT_CREATE_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final byte[] DEFAULT_COVER_IMAGE_DATA = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_COVER_IMAGE_DATA = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_COVER_IMAGE_DATA_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_COVER_IMAGE_DATA_CONTENT_TYPE = "image/png";
+
+    private static final String DEFAULT_SYNOPSIS = "AAAAA";
+    private static final String UPDATED_SYNOPSIS = "BBBBB";
 
     @Inject
     private ComicBookRepository comicBookRepository;
@@ -93,7 +102,10 @@ public class ComicBookResourceIntTest {
         ComicBook comicBook = new ComicBook()
                 .title(DEFAULT_TITLE)
                 .description(DEFAULT_DESCRIPTION)
-                .createDate(DEFAULT_CREATE_DATE);
+                .createDate(DEFAULT_CREATE_DATE)
+                .coverImageData(DEFAULT_COVER_IMAGE_DATA)
+                .coverImageDataContentType(DEFAULT_COVER_IMAGE_DATA_CONTENT_TYPE)
+                .synopsis(DEFAULT_SYNOPSIS);
         return comicBook;
     }
 
@@ -122,6 +134,9 @@ public class ComicBookResourceIntTest {
         assertThat(testComicBook.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testComicBook.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testComicBook.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
+        assertThat(testComicBook.getCoverImageData()).isEqualTo(DEFAULT_COVER_IMAGE_DATA);
+        assertThat(testComicBook.getCoverImageDataContentType()).isEqualTo(DEFAULT_COVER_IMAGE_DATA_CONTENT_TYPE);
+        assertThat(testComicBook.getSynopsis()).isEqualTo(DEFAULT_SYNOPSIS);
     }
 
     @Test
@@ -175,7 +190,10 @@ public class ComicBookResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(comicBook.getId().intValue())))
                 .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE.toString())));
+                .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE.toString())))
+                .andExpect(jsonPath("$.[*].coverImageDataContentType").value(hasItem(DEFAULT_COVER_IMAGE_DATA_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].coverImageData").value(hasItem(Base64Utils.encodeToString(DEFAULT_COVER_IMAGE_DATA))))
+                .andExpect(jsonPath("$.[*].synopsis").value(hasItem(DEFAULT_SYNOPSIS.toString())));
     }
 
     @Test
@@ -191,7 +209,10 @@ public class ComicBookResourceIntTest {
             .andExpect(jsonPath("$.id").value(comicBook.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE.toString()));
+            .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE.toString()))
+            .andExpect(jsonPath("$.coverImageDataContentType").value(DEFAULT_COVER_IMAGE_DATA_CONTENT_TYPE))
+            .andExpect(jsonPath("$.coverImageData").value(Base64Utils.encodeToString(DEFAULT_COVER_IMAGE_DATA)))
+            .andExpect(jsonPath("$.synopsis").value(DEFAULT_SYNOPSIS.toString()));
     }
 
     @Test
@@ -214,7 +235,10 @@ public class ComicBookResourceIntTest {
         updatedComicBook
                 .title(UPDATED_TITLE)
                 .description(UPDATED_DESCRIPTION)
-                .createDate(UPDATED_CREATE_DATE);
+                .createDate(UPDATED_CREATE_DATE)
+                .coverImageData(UPDATED_COVER_IMAGE_DATA)
+                .coverImageDataContentType(UPDATED_COVER_IMAGE_DATA_CONTENT_TYPE)
+                .synopsis(UPDATED_SYNOPSIS);
         ComicBookDTO comicBookDTO = comicBookMapper.comicBookToComicBookDTO(updatedComicBook);
 
         restComicBookMockMvc.perform(put("/api/comic-books")
@@ -229,6 +253,9 @@ public class ComicBookResourceIntTest {
         assertThat(testComicBook.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testComicBook.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testComicBook.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
+        assertThat(testComicBook.getCoverImageData()).isEqualTo(UPDATED_COVER_IMAGE_DATA);
+        assertThat(testComicBook.getCoverImageDataContentType()).isEqualTo(UPDATED_COVER_IMAGE_DATA_CONTENT_TYPE);
+        assertThat(testComicBook.getSynopsis()).isEqualTo(UPDATED_SYNOPSIS);
     }
 
     @Test

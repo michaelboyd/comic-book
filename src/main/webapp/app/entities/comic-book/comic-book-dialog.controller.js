@@ -5,17 +5,20 @@
         .module('comicBookApp')
         .controller('ComicBookDialogController', ComicBookDialogController);
 
-    ComicBookDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'ComicBook', 'ComicPage'];
+    ComicBookDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'ComicBook', 'ComicPage'];
 
-    function ComicBookDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, ComicBook, ComicPage) {
+    function ComicBookDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, ComicBook, ComicPage) {
         var vm = this;
 
         vm.comicBook = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.comicpages = ComicPage.query();
+        vm.comicBook.createDate = new Date();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -45,9 +48,20 @@
         }
 
         vm.datePickerOpenStatus.createDate = false;
-        
-        //default createDate to current date
-        vm.comicBook.createDate = new Date();
+
+        vm.setCoverImageData = function ($file, comicBook) {
+            if ($file && $file.$error === 'pattern') {
+                return;
+            }
+            if ($file) {
+                DataUtils.toBase64($file, function(base64Data) {
+                    $scope.$apply(function() {
+                        comicBook.coverImageData = base64Data;
+                        comicBook.coverImageDataContentType = $file.type;
+                    });
+                });
+            }
+        };
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;

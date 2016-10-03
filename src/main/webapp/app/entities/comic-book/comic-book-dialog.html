@@ -31,8 +31,7 @@
                     ng-model="vm.comicBook.description"
                      />
         </div>
-        
-<!--         <div class="form-group" > -->
+<!--         <div class="form-group"> -->
 <!--             <label class="control-label" data-translate="comicBookApp.comicBook.createDate" for="field_createDate">Create Date</label> -->
 <!--                 <div class="input-group"> -->
 <!--                     <input id="field_createDate" type="text" class="form-control" name="createDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.comicBook.createDate" is-open="vm.datePickerOpenStatus.createDate" -->
@@ -48,6 +47,33 @@
 <!--                 </p> -->
 <!--             </div> -->
 <!--         </div> -->
+        <div class="form-group" ngf-drop ngf-change="vm.setCoverImageData($file, vm.comicBook)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="comicBookApp.comicBook.coverImageData" for="field_coverImageData">Cover Image Data</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.comicBook.coverImageDataContentType + ';base64,' + vm.comicBook.coverImageData}}" style="max-height: 100px;" ng-if="vm.comicBook.coverImageData"/>
+                <div ng-if="vm.comicBook.coverImageData" class="help-block clearfix">
+                    <span class="pull-left">{{vm.comicBook.coverImageDataContentType}}, {{vm.byteSize(vm.comicBook.coverImageData)}}</span>
+                    <button ng-click="vm.comicBook.coverImageData=null;vm.comicBook.coverImageDataContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setCoverImageData($file, vm.comicBook)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="coverImageData" id="field_coverImageData"
+                    ng-model="vm.comicBook.coverImageData"
+                     />
+            <input type="hidden" class="form-control" name="coverImageDataContentType" id="field_coverImageDataContentType"
+                    ng-model="vm.comicBook.coverImageDataContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="comicBookApp.comicBook.synopsis" for="field_synopsis">Synopsis</label>
+                <textarea class="form-control" name="synopsis" id="field_synopsis"
+                    ng-model="vm.comicBook.synopsis"  ></textarea>
+        </div>
 
     </div>
     <div class="modal-footer">

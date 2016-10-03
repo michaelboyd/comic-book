@@ -37,6 +37,17 @@ public class ComicBook implements Serializable {
     @Column(name = "create_date", nullable = false)
     private LocalDate createDate;
 
+    @Lob
+    @Column(name = "cover_image_data")
+    private byte[] coverImageData;
+
+    @Column(name = "cover_image_data_content_type")
+    private String coverImageDataContentType;
+
+    @Lob
+    @Column(name = "synopsis")
+    private String synopsis;
+
     @OneToMany(mappedBy = "comicBook")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -87,6 +98,45 @@ public class ComicBook implements Serializable {
 
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
+    }
+
+    public byte[] getCoverImageData() {
+        return coverImageData;
+    }
+
+    public ComicBook coverImageData(byte[] coverImageData) {
+        this.coverImageData = coverImageData;
+        return this;
+    }
+
+    public void setCoverImageData(byte[] coverImageData) {
+        this.coverImageData = coverImageData;
+    }
+
+    public String getCoverImageDataContentType() {
+        return coverImageDataContentType;
+    }
+
+    public ComicBook coverImageDataContentType(String coverImageDataContentType) {
+        this.coverImageDataContentType = coverImageDataContentType;
+        return this;
+    }
+
+    public void setCoverImageDataContentType(String coverImageDataContentType) {
+        this.coverImageDataContentType = coverImageDataContentType;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public ComicBook synopsis(String synopsis) {
+        this.synopsis = synopsis;
+        return this;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public Set<ComicPage> getPages() {
@@ -141,6 +191,9 @@ public class ComicBook implements Serializable {
             ", title='" + title + "'" +
             ", description='" + description + "'" +
             ", createDate='" + createDate + "'" +
+            ", coverImageData='" + coverImageData + "'" +
+            ", coverImageDataContentType='" + coverImageDataContentType + "'" +
+            ", synopsis='" + synopsis + "'" +
             '}';
     }
 }

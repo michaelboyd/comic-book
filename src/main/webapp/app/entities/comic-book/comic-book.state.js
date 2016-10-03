@@ -107,6 +107,9 @@
                                 title: null,
                                 description: null,
                                 createDate: null,
+                                coverImageData: null,
+                                coverImageDataContentType: null,
+                                synopsis: null,
                                 id: null
                             };
                         }

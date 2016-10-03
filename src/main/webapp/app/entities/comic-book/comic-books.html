@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" ui-sref="comic-book.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  data-translate="comicBookApp.comicBook.home.createLabel">
-                        
+                        Create new Comic Book
                     </span>
                 </button>
             </div>
@@ -21,6 +21,7 @@
                     <th><span data-translate="comicBookApp.comicBook.title">Title</span></th>
                     <th><span data-translate="comicBookApp.comicBook.description">Description</span></th>
                     <th><span data-translate="comicBookApp.comicBook.createDate">Create Date</span></th>
+                    <th><span data-translate="comicBookApp.comicBook.coverImageData">Cover Image Data</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -29,6 +30,12 @@
                     <td><a ui-sref="comic-book-detail({id:comicBook.id})">{{comicBook.title}}</a></td>
                     <td>{{comicBook.description}}</td>
                         <td>{{comicBook.createDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ng-if="comicBook.coverImageData" ng-click="vm.openFile(comicBook.coverImageDataContentType, comicBook.coverImageData)">
+                            <img data-ng-src="{{'data:' + comicBook.coverImageDataContentType + ';base64,' + comicBook.coverImageData}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="comicBook.coverImageData">{{comicBook.coverImageDataContentType}}, {{vm.byteSize(comicBook.coverImageData)}}</span>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
@@ -49,7 +56,6 @@
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
                             </button>
-
                         </div>
                     </td>
                 </tr>

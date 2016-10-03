@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 
 /**
@@ -22,6 +23,13 @@ public class ComicBookDTO implements Serializable {
 
     @NotNull
     private LocalDate createDate;
+
+    @Lob
+    private byte[] coverImageData;
+
+    private String coverImageDataContentType;
+    @Lob
+    private String synopsis;
 
 
     public Long getId() {
@@ -52,6 +60,28 @@ public class ComicBookDTO implements Serializable {
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
+    public byte[] getCoverImageData() {
+        return coverImageData;
+    }
+
+    public void setCoverImageData(byte[] coverImageData) {
+        this.coverImageData = coverImageData;
+    }
+
+    public String getCoverImageDataContentType() {
+        return coverImageDataContentType;
+    }
+
+    public void setCoverImageDataContentType(String coverImageDataContentType) {
+        this.coverImageDataContentType = coverImageDataContentType;
+    }
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -81,6 +111,8 @@ public class ComicBookDTO implements Serializable {
             ", title='" + title + "'" +
             ", description='" + description + "'" +
             ", createDate='" + createDate + "'" +
+            ", coverImageData='" + coverImageData + "'" +
+            ", synopsis='" + synopsis + "'" +
             '}';
     }
 }
