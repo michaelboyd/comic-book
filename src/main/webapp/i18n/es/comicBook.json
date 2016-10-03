@@ -1,0 +1,25 @@
+{
+    "comicBookApp": {
+        "comicBook" : {
+            "home": {
+                "title": "Comic Books",
+                "createLabel": "Crear nuevo Comic Book",
+                "createOrEditLabel": "Crear o editar Comic Book",
+                "search": "Search for Comic Book"
+            },
+            "created": "Un nuevo Comic Book ha sido creado con el identificador {{ param }}",
+            "updated": "Un Comic Book ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Comic Book ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Comic Book {{ id }}?"
+            },
+            "detail": {
+                "title": "Comic Book"
+            },
+            "title": "Title",
+            "description": "Description",
+            "createDate": "Create Date",
+            "pages": "Pages"
+        }
+    }
+}

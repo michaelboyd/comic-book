@@ -1,0 +1,67 @@
+<div>
+    <h2 data-translate="comicBookApp.comicPage.home.title">Comic Pages</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="comic-page.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="comicBookApp.comicPage.home.createLabel">
+                        Create new Comic Page
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="comicBookApp.comicPage.pageNumber">Page Number</span></th>
+                    <th><span data-translate="comicBookApp.comicPage.imageData">Image Data</span></th>
+                    <th><span data-translate="comicBookApp.comicPage.comicBook">Comic Book</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="comicPage in vm.comicPages track by comicPage.id">
+                    <td><a ui-sref="comic-page-detail({id:comicPage.id})">{{comicPage.id}}</a></td>
+                    <td>{{comicPage.pageNumber}}</td>
+                    <td>
+                        <a ng-if="comicPage.imageData" ng-click="vm.openFile(comicPage.imageDataContentType, comicPage.imageData)">
+                            <img data-ng-src="{{'data:' + comicPage.imageDataContentType + ';base64,' + comicPage.imageData}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="comicPage.imageData">{{comicPage.imageDataContentType}}, {{vm.byteSize(comicPage.imageData)}}</span>
+                    </td>
+                    <td>
+                        <a ui-sref="comic-book-detail({id:comicPage.comicBookId})">{{comicPage.comicBookTitle}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="comic-page-detail({id:comicPage.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="comic-page.edit({id:comicPage.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="comic-page.delete({id:comicPage.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

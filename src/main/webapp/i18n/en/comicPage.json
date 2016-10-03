@@ -1,0 +1,24 @@
+{
+    "comicBookApp": {
+        "comicPage" : {
+            "home": {
+                "title": "Comic Pages",
+                "createLabel": "Create a new Comic Page",
+                "createOrEditLabel": "Create or edit a Comic Page",
+                "search": "Search for Comic Page"
+            },
+            "created": "A new Comic Page is created with identifier {{ param }}",
+            "updated": "A Comic Page is updated with identifier {{ param }}",
+            "deleted": "A Comic Page is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Comic Page {{ id }}?"
+            },
+            "detail": {
+                "title": "Comic Page"
+            },
+            "pageNumber": "Page Number",
+            "imageData": "Image Data",
+            "comicBook": "Comic Book"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="comicBookApp.comicBook.detail.title">Comic Book</span> {{vm.comicBook.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="comicBookApp.comicBook.title">Title</span></dt>
+        <dd>
+            <span>{{vm.comicBook.title}}</span>
+        </dd>
+        <dt><span data-translate="comicBookApp.comicBook.description">Description</span></dt>
+        <dd>
+            <span>{{vm.comicBook.description}}</span>
+        </dd>
+        <dt><span data-translate="comicBookApp.comicBook.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{vm.comicBook.createDate | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="comic-book-detail.edit({id:vm.comicBook.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

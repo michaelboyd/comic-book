@@ -42,5 +42,17 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="com.comicbook.domain.ComicBook"
+                               timeToLiveSeconds="3600">
+                        </cache>
+                        
+    <cache name="com.comicbook.domain.ComicBook.pages"
+                               timeToLiveSeconds="3600">
+                        </cache>
+                        
+    <cache name="com.comicbook.domain.ComicPage"
+                               timeToLiveSeconds="3600">
+                        </cache>
+                        
     <!-- jhipster-needle-ehcache-add-entry -->
 </ehcache>

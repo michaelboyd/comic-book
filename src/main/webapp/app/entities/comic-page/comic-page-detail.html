@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span data-translate="comicBookApp.comicPage.detail.title">Comic Page</span> {{vm.comicPage.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="comicBookApp.comicPage.pageNumber">Page Number</span></dt>
+        <dd>
+            <span>{{vm.comicPage.pageNumber}}</span>
+        </dd>
+        <dt><span data-translate="comicBookApp.comicPage.imageData">Image Data</span></dt>
+        <dd>
+            <div ng-if="vm.comicPage.imageData">
+                <a ng-click="vm.openFile(vm.comicPage.imageDataContentType, vm.comicPage.imageData)">
+                    <img data-ng-src="{{'data:' + vm.comicPage.imageDataContentType + ';base64,' + vm.comicPage.imageData}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.comicPage.imageDataContentType}}, {{vm.byteSize(vm.comicPage.imageData)}}
+            </div>
+        </dd>
+        <dt><span data-translate="comicBookApp.comicPage.comicBook">Comic Book</span></dt>
+        <dd>
+            <a ui-sref="comic-book-detail({id:vm.comicPage.comicBookId})">{{vm.comicPage.comicBookTitle}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="comic-page-detail.edit({id:vm.comicPage.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
