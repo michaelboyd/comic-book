@@ -5,9 +5,6 @@
         <div class="col-md-10">
             <h1 data-translate="home.title">Welcome, Java Hipster!</h1>
             <p class="lead" data-translate="home.subtitle">This is your homepage</p>
-            
-            <p align="center">
-            
 			<ul class="comic-book-thumbs">
 				<li class="" ng-repeat="comicBook in vm.comicBooks track by comicBook.id">
 					<a ng-if="comicBook.coverImageData" ui-sref="view-comic-book({id:comicBook.id})"> 
@@ -15,9 +12,6 @@
 					</a>
 				</li>
 			</ul>
-			
-			</p>
-
 		</div>
     </div>
 </div>

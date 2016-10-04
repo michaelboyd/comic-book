@@ -1,12 +1,17 @@
 package com.comicbook.service.dto;
 
 import java.time.LocalDate;
+
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+
 import javax.persistence.Lob;
+
+import com.comicbook.domain.ComicPage;
 
 
 /**
@@ -30,9 +35,26 @@ public class ComicBookDTO implements Serializable {
     private String coverImageDataContentType;
     @Lob
     private String synopsis;
+    
+    private Set<ComicPage> pages = new HashSet<>();    
 
 
-    public Long getId() {
+    
+    /**
+	 * @return the pages
+	 */
+	public Set<ComicPage> getPages() {
+		return pages;
+	}
+
+	/**
+	 * @param pages the pages to set
+	 */
+	public void setPages(Set<ComicPage> pages) {
+		this.pages = pages;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -113,6 +135,7 @@ public class ComicBookDTO implements Serializable {
             ", createDate='" + createDate + "'" +
             ", coverImageData='" + coverImageData + "'" +
             ", synopsis='" + synopsis + "'" +
+            ", pages='" + pages + "'" +
             '}';
     }
 }

@@ -29,6 +29,16 @@
         <dd>
             <span>{{vm.comicBook.synopsis}}</span>
         </dd>
+        
+        
+        <dt>Pages</dt>
+     	<dd>
+			<ul class="comic-book-thumbs">
+				<li class="" ng-repeat="comicBookPage in vm.comicBook.pages track by comicBookPage.id">
+					<img data-ng-src="{{'data:' + comicBookPage.imageDataContentType + ';base64,' + comicBookPage.imageData}}" />
+				</li>
+			</ul>
+     	</dd>   
     </dl>
 
     <button type="submit"

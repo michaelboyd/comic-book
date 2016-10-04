@@ -69,6 +69,7 @@ public class ComicBookService {
         log.debug("Request to get ComicBook : {}", id);
         ComicBook comicBook = comicBookRepository.findOne(id);
         ComicBookDTO comicBookDTO = comicBookMapper.comicBookToComicBookDTO(comicBook);
+        comicBookDTO.setPages(comicBook.getPages());
         return comicBookDTO;
     }
 
