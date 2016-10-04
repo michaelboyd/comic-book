@@ -374,3 +374,44 @@ Social Buttons
 }
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+
+/* View: Phone list */
+.comics {
+  list-style: none;
+}
+
+.comics li {
+  clear: both;
+  height: 230px;
+  padding-top: 10px;
+}
+
+.thumb {
+  float: left;
+  height: 100px;
+  margin: -0.5em 1em 1.5em 0;
+  padding-bottom: 1em;
+  width: 100px;
+}
+
+/* My CSS Entries */
+
+.comic-book-thumbs {
+  list-style: none;
+  margin: 0;
+}
+
+.comic-book-thumbs img {
+  height: 200px;
+  padding: 1em;
+  width: 200px;
+}
+
+.comic-book-thumbs li {
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  display: inline-block;
+  margin: 1em;
+}
