@@ -7,7 +7,7 @@
 
     NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService','$scope'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService,$scope) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService, $scope) {
         var vm = this;
 
         vm.account = null;

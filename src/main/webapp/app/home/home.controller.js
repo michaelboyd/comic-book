@@ -5,27 +5,22 @@
         .module('comicBookApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'ComicBook'];
 
-    function HomeController ($scope, Principal, LoginService, $state) {
+    function HomeController ($scope, Principal, LoginService, $state, ComicBook) {
         var vm = this;
 
-        vm.account = null;
-        vm.isAuthenticated = null;
-        vm.login = LoginService.open;
         vm.register = register;
-        $scope.$on('authenticationSuccess', function() {
-            getAccount();
-        });
 
-        getAccount();
 
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
+        loadAll();        
+
+        function loadAll() {
+            ComicBook.query(function(result) {
+                vm.comicBooks = result;
             });
         }
+
         function register () {
             $state.go('register');
         }

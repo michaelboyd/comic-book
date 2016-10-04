@@ -27,101 +27,88 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Inject
-    private JHipsterProperties jHipsterProperties;
+	@Inject
+	private JHipsterProperties jHipsterProperties;
 
-    @Inject
-    private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+	@Inject
+	private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
 
-    @Inject
-    private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
+	@Inject
+	private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
 
-    @Inject
-    private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
+	@Inject
+	private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
 
-    @Inject
-    private Http401UnauthorizedEntryPoint authenticationEntryPoint;
+	@Inject
+	private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
-    @Inject
-    private UserDetailsService userDetailsService;
+	@Inject
+	private UserDetailsService userDetailsService;
 
-    @Inject
-    private RememberMeServices rememberMeServices;
+	@Inject
+	private RememberMeServices rememberMeServices;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Inject
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
+	@Inject
+	public void configureGlobal(AuthenticationManagerBuilder auth)
+			throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(
+				passwordEncoder());
+	}
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            .antMatchers("/app/**/*.{js,html}")
-            .antMatchers("/bower_components/**")
-            .antMatchers("/i18n/**")
-            .antMatchers("/content/**")
-            .antMatchers("/swagger-ui/index.html")
-            .antMatchers("/test/**");
-    }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
+				.antMatchers("/app/**/*.{js,html}")
+				.antMatchers("/bower_components/**").antMatchers("/i18n/**")
+				.antMatchers("/content/**")
+				.antMatchers("/swagger-ui/index.html").antMatchers("/test/**");
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf()
-        .and()
-            .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
-            .exceptionHandling()
-            .accessDeniedHandler(new CustomAccessDeniedHandler())
-            .authenticationEntryPoint(authenticationEntryPoint)
-        .and()
-            .rememberMe()
-            .rememberMeServices(rememberMeServices)
-            .rememberMeParameter("remember-me")
-            .key(jHipsterProperties.getSecurity().getRememberMe().getKey())
-        .and()
-            .formLogin()
-            .loginProcessingUrl("/api/authentication")
-            .successHandler(ajaxAuthenticationSuccessHandler)
-            .failureHandler(ajaxAuthenticationFailureHandler)
-            .usernameParameter("j_username")
-            .passwordParameter("j_password")
-            .permitAll()
-        .and()
-            .logout()
-            .logoutUrl("/api/logout")
-            .logoutSuccessHandler(ajaxLogoutSuccessHandler)
-            .deleteCookies("JSESSIONID", "CSRF-TOKEN")
-            .permitAll()
-        .and()
-            .headers()
-            .frameOptions()
-            .disable()
-        .and()
-            .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/account/reset_password/init").permitAll()
-            .antMatchers("/api/account/reset_password/finish").permitAll()
-            .antMatchers("/api/profile-info").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/v2/api-docs/**").permitAll()
-            .antMatchers("/swagger-resources/configuration/ui").permitAll()
-            .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN);
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf()
+				.and()
+				.addFilterAfter(new CsrfCookieGeneratorFilter(),
+						CsrfFilter.class).exceptionHandling()
+				.accessDeniedHandler(new CustomAccessDeniedHandler())
+				.authenticationEntryPoint(authenticationEntryPoint).and()
+				.rememberMe().rememberMeServices(rememberMeServices)
+				.rememberMeParameter("remember-me")
+				.key(jHipsterProperties.getSecurity().getRememberMe().getKey())
+				.and().formLogin().loginProcessingUrl("/api/authentication")
+				.successHandler(ajaxAuthenticationSuccessHandler)
+				.failureHandler(ajaxAuthenticationFailureHandler)
+				.usernameParameter("j_username")
+				.passwordParameter("j_password").permitAll().and().logout()
+				.logoutUrl("/api/logout")
+				.logoutSuccessHandler(ajaxLogoutSuccessHandler)
+				.deleteCookies("JSESSIONID", "CSRF-TOKEN").permitAll().and()
+				.headers().frameOptions().disable().and().authorizeRequests()
+				.antMatchers("/api/register").permitAll()
+				.antMatchers("/api/activate").permitAll()
+				.antMatchers("/api/authenticate").permitAll()
+				.antMatchers("/api/account/reset_password/init").permitAll()
+				.antMatchers("/api/account/reset_password/finish").permitAll()
+				.antMatchers("/api/profile-info").permitAll()
+				//.antMatchers("/api/comic-books").permitAll()
+				//.antMatchers("/api/view-comic-books").permitAll()
+				.antMatchers("/api/**").permitAll()
+				.antMatchers("/management/**")
+				.hasAuthority(AuthoritiesConstants.ADMIN)
+				.antMatchers("/v2/api-docs/**").permitAll()
+				.antMatchers("/swagger-resources/configuration/ui").permitAll()
+				.antMatchers("/swagger-ui/index.html")
+				.hasAuthority(AuthoritiesConstants.ADMIN);
 
-    }
+	}
 
-    @Bean
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
-    }
+	@Bean
+	public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+		return new SecurityEvaluationContextExtension();
+	}
 }
