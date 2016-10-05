@@ -1,18 +1,23 @@
 package com.comicbook.service;
 
-import com.comicbook.domain.ComicBook;
-import com.comicbook.repository.ComicBookRepository;
-import com.comicbook.service.dto.ComicBookDTO;
-import com.comicbook.service.mapper.ComicBookMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.comicbook.domain.ComicBook;
+import com.comicbook.domain.ComicPage;
+import com.comicbook.repository.ComicBookRepository;
+import com.comicbook.repository.ComicPageRepository;
+import com.comicbook.service.dto.ComicBookDTO;
+import com.comicbook.service.mapper.ComicBookMapper;
 
 /**
  * Service Implementation for managing ComicBook.
@@ -25,6 +30,9 @@ public class ComicBookService {
     
     @Inject
     private ComicBookRepository comicBookRepository;
+    
+    @Inject 
+    private ComicPageRepository comicPageRepository;
 
     @Inject
     private ComicBookMapper comicBookMapper;
@@ -68,8 +76,9 @@ public class ComicBookService {
     public ComicBookDTO findOne(Long id) {
         log.debug("Request to get ComicBook : {}", id);
         ComicBook comicBook = comicBookRepository.findOne(id);
+        Set <ComicPage> pages = comicPageRepository.findByComicBookOrderByPageNumber(comicBook);
         ComicBookDTO comicBookDTO = comicBookMapper.comicBookToComicBookDTO(comicBook);
-        comicBookDTO.setPages(comicBook.getPages());
+        comicBookDTO.setPages(pages);
         return comicBookDTO;
     }
 
