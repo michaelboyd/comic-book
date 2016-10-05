@@ -1,46 +1,34 @@
 
 <div>
-    <h2><span data-translate="comicBookApp.comicBook.detail.title">Comic Book</span> {{vm.comicBook.id}}</h2>
+    <h2>{{vm.comicBook.title}}</h2>
+    <h4>{{vm.comicBook.description}}</h4>
+    Create Date: {{vm.comicBook.createDate | date:'mediumDate'}}
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    
+    <div ng-if="vm.comicBook.coverImageData">
+   		<a ng-click="vm.openFile(vm.comicBook.coverImageDataContentType, vm.comicBook.coverImageData)">
+        	<img data-ng-src="{{'data:' + vm.comicBook.coverImageDataContentType + ';base64,' + vm.comicBook.coverImageData}}" style="max-width: 100%;"/>
+        </a>
+        <div>
+        	{{vm.comicBook.coverImageDataContentType}}, {{vm.byteSize(vm.comicBook.coverImageData)}}
+        </div>
+    </div>  
+            
+    <div>
+		<ul class="comic-book-thumbs">
+			<li class="" ng-repeat="comicBookPage in vm.comicBook.pages track by comicBookPage.id">
+				<img data-ng-src="{{'data:' + comicBookPage.imageDataContentType + ';base64,' + comicBookPage.imageData}}" ng-click="vm.setImage(comicBookPage.imageData)"/>
+			</li>
+		</ul>            
+    </div>  
+    
+    
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="comicBookApp.comicBook.title">Title</span></dt>
-        <dd>
-            <span>{{vm.comicBook.title}}</span>
-        </dd>
-        <dt><span data-translate="comicBookApp.comicBook.description">Description</span></dt>
-        <dd>
-            <span>{{vm.comicBook.description}}</span>
-        </dd>
-        <dt><span data-translate="comicBookApp.comicBook.createDate">Create Date</span></dt>
-        <dd>
-            <span>{{vm.comicBook.createDate | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span data-translate="comicBookApp.comicBook.coverImageData">Cover Image Data</span></dt>
-        
-        <dd>
-            <div ng-if="vm.comicBook.coverImageData">
-                <a ng-click="vm.openFile(vm.comicBook.coverImageDataContentType, vm.comicBook.coverImageData)">
-                    <img data-ng-src="{{'data:' + vm.comicBook.coverImageDataContentType + ';base64,' + vm.comicBook.coverImageData}}" style="max-height: 80%;"/>
-                </a>
-                {{vm.comicBook.coverImageDataContentType}}, {{vm.byteSize(vm.comicBook.coverImageData)}}
-            </div>
-        </dd>
-        
         <dt><span data-translate="comicBookApp.comicBook.synopsis">Synopsis</span></dt>
         <dd>
             <span>{{vm.comicBook.synopsis}}</span>
         </dd>
-        
-        
-        <dt>Pages</dt>
-     	<dd>
-			<ul class="comic-book-thumbs">
-				<li class="" ng-repeat="comicBookPage in vm.comicBook.pages track by comicBookPage.id">
-					<img data-ng-src="{{'data:' + comicBookPage.imageDataContentType + ';base64,' + comicBookPage.imageData}}" ng-click="vm.setImage(comicBookPage.imageData)"/>
-				</li>
-			</ul>
-     	</dd>   
     </dl>
 
     <button type="submit"
