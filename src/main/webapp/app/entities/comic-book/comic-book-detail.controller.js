@@ -14,10 +14,15 @@
         vm.previousState = previousState.name;
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
+        
+        vm.setImage = function setImage(coverImageData) {
+        	vm.comicBook.coverImageData = coverImageData;
+        };        
 
         var unsubscribe = $rootScope.$on('comicBookApp:comicBookUpdate', function(event, result) {
             vm.comicBook = result;
         });
+        
         $scope.$on('$destroy', unsubscribe);
     }
 })();
