@@ -22,7 +22,7 @@ import java.util.SortedSet;
 
 @SuppressWarnings("unused")
 @Configuration
-//@EnableCaching
+@EnableCaching
 @AutoConfigureAfter(value = { MetricsConfiguration.class, DatabaseConfiguration.class })
 public class CacheConfiguration {
 
