@@ -111,10 +111,6 @@ public class ComicBookResource {
     public ResponseEntity<ComicBookDTO> getComicBook(@PathVariable Long id) {
         log.debug("REST request to get ComicBook : {}", id);
         ComicBookDTO comicBookDTO = comicBookService.findOne(id);
-        Set<ComicPage> pages = comicBookDTO.getPages();
-        for(ComicPage page : pages) {
-        	System.out.println(page.getComicBook().getTitle());
-        }
         return Optional.ofNullable(comicBookDTO)
             .map(result -> new ResponseEntity<>(
                 result,
