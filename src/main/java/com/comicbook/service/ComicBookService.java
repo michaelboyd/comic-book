@@ -78,7 +78,9 @@ public class ComicBookService {
         ComicBook comicBook = comicBookRepository.findOne(id);
         Set <ComicPage> pages = comicPageRepository.findByComicBookOrderByPageNumber(comicBook);
         ComicBookDTO comicBookDTO = comicBookMapper.comicBookToComicBookDTO(comicBook);
-        comicBookDTO.setPages(pages);
+        if(comicBook != null && comicBookDTO != null) {
+        	comicBookDTO.setPages(pages);
+        }
         return comicBookDTO;
     }
 
